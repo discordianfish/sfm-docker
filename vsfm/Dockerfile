@@ -12,9 +12,9 @@ RUN apt-get -qy install libgtk2.0 $BUILD_DEPS \
     && cd vsfm \
     && rm -rf bin/* && make \
     && mv bin/VisualSFM /usr/local/bin \
-    && apt-get -qy purge --auto-remove $BUILD_DEPS
+    && apt-get -qy purge --auto-remove $BUILD_DEPS \
+    && ln -s /data/log /usr/local/bin/log # vsfm logs to bin dir, not cwd..
 
-USER nobody
 VOLUME /data
 WORKDIR /data
 ENTRYPOINT [ "/usr/local/bin/VisualSFM" ]
